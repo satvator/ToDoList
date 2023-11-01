@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{%block title %} Home {% endblock title %}
+
+{% block content %}
+      <div class='container'>
+        <h2> Add a ToDo </h2>
+        <form action="/" method="POST">
+          <div class="mb-3">
+            <label for="title" class="form-label">ToDo Title</label>
+            <input type="text" class="form-control" name='title' id="title" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">Only add the things if its practically possible.</div>
+          </div>
+          <div class="mb-3">
+            <label for="desc" class="form-label">ToDo Description</label>
+            <input type="text" class="form-control" name="desc" id="desc">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      <div class="container my-3">
+
+        <h2> Your ToDos </h2>
+        {% if allTodo|length==0 %}
+            <div class="alert alert-info" role="alert">
+  No ToDo found!!
+</div>
+              
+            {% else %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">SNo</th>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Date</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+       
+              {% for todo in allTodo %}
+              <tr>
+              <th scope="row">{{loop.index}}</th>
+              <td>{{todo.title}}</td>
+              <td>{{todo.desc}}</td>
+              <td>{{todo.date_created}}</td>
+              <td><a href= "/delete/{{todo.sno}}" <button type="button" class="btn btn-outline-dark btn-sm mx-1">Delete</button></td>
+              <td><a href= "/update/{{todo.sno}}" <button type="button" class="btn btn-outline-dark btn-sm">Update</button></td>
+
+            </tr>
+            {% endfor %}
+          {% endif %}
+          
+       
+          </tbody>
+        </table>
+
+{% endblock content %}
